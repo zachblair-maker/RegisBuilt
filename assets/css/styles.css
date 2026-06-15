@@ -677,3 +677,51 @@ body.is-loaded .hero__inner .eyebrow, body.is-loaded .hero__lead, body.is-loaded
   .hero__inner .eyebrow, .hero__lead, .hero__cta, .hero__stats { transform: none !important; opacity: 1 !important; }
 }
 @media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+
+/* ===================================================================
+   Branded intro / preloader (home)
+   =================================================================== */
+body.preloading { overflow: hidden; }
+.preloader { position: fixed; inset: 0; z-index: 10001; background: var(--navy-900); display: grid; place-items: center;
+  transition: transform 1s var(--ease), opacity .6s var(--ease); }
+.preloader__inner { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.preloader__mark { width: 82px; height: auto; opacity: 0; transform: translateY(10px) scale(.96); animation: plMark .9s var(--ease) forwards; }
+.preloader__word { font-family: var(--font-body); font-weight: 700; letter-spacing: .24em; font-size: 1rem; color: var(--text); opacity: 0; animation: plWord .7s var(--ease) .25s forwards; }
+.preloader__word b { color: var(--orange); }
+.preloader__bar { width: 180px; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.preloader__bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--orange), var(--orange-2)); animation: plBar 1.15s var(--ease) .15s forwards; }
+@keyframes plMark { to { opacity: 1; transform: none; } }
+@keyframes plWord { to { opacity: 1; } }
+@keyframes plBar { to { width: 100%; } }
+.preloader.is-done { transform: translateY(-100%); pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .preloader__mark, .preloader__word { animation: none; opacity: 1; transform: none; }
+  .preloader__bar i { animation: none; width: 100%; }
+  .preloader { transition: opacity .4s var(--ease); }
+  .preloader.is-done { transform: none; opacity: 0; }
+}
+
+/* ===================================================================
+   Scroll-driven horizontal gallery
+   =================================================================== */
+.hgallery { position: relative; background: var(--navy-850); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.hgallery__sticky { display: flex; align-items: center; }
+.hgallery__track { display: flex; align-items: center; gap: clamp(18px, 2vw, 32px); padding: clamp(80px, 10vw, 120px) clamp(22px, 5vw, 60px); will-change: transform; }
+.hgallery__intro { flex: 0 0 auto; width: min(80vw, 440px); padding-right: clamp(20px, 3vw, 48px); }
+.hgallery__intro h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.04; letter-spacing: -0.02em; margin-top: 18px; }
+.hgallery__intro p { color: var(--soft); margin-top: 20px; max-width: 38ch; }
+.hgallery__hint { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; color: var(--mute); font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; }
+.hgallery__hint span { width: 34px; height: 1px; background: var(--orange); }
+.hgallery__item { flex: 0 0 auto; width: clamp(320px, 44vw, 560px); }
+.hgallery__item--wide { width: clamp(440px, 62vw, 820px); }
+.hgallery__media { height: clamp(380px, 66vh, 700px); background-size: cover; background-position: center; border: 1px solid var(--line); border-radius: var(--radius);
+  filter: saturate(.94) brightness(.93) contrast(1.02); transition: filter .6s var(--ease); }
+.hgallery__item:hover .hgallery__media { filter: saturate(1.05) brightness(1) contrast(1.02); }
+.hgallery__cap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 16px; }
+.hgallery__cap b { font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; color: var(--text); }
+.hgallery__cap span { color: var(--mute); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+/* fallback: native horizontal swipe when not pinned */
+.hgallery:not(.is-pinned) .hgallery__sticky { overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.hgallery:not(.is-pinned) .hgallery__sticky::-webkit-scrollbar { display: none; }
+.hgallery:not(.is-pinned) .hgallery__item { scroll-snap-align: center; }
+.hgallery.is-pinned .hgallery__sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
