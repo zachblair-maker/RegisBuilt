@@ -498,3 +498,61 @@ button { font: inherit; cursor: pointer; }
 }
 
 .portfolio__empty { text-align: center; color: var(--mute); padding: 48px 0; font-size: 1.05rem; }
+
+/* ===================================================================
+   Interactive process (tabbed, with media panel)
+   =================================================================== */
+.proc { margin-top: clamp(34px, 5vw, 52px); }
+.proc__tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.proc__tab {
+  width: 100%; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; text-align: left;
+  padding: 18px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  color: var(--soft); transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease), transform .35s var(--ease);
+}
+.proc__tab:hover { border-color: var(--line-strong); color: var(--text); transform: translateY(-2px); }
+.proc__tab.is-active { background: var(--surface-2); border-color: var(--orange); color: var(--text); }
+.proc__num { font-family: var(--font-display); font-weight: 500; font-size: 1.35rem; line-height: 1; color: var(--orange); }
+.proc__label { font-weight: 600; font-size: .98rem; }
+.proc__rail { height: 3px; background: var(--line); border-radius: 3px; overflow: hidden; margin-top: 16px; }
+.proc__rail i { display: block; height: 100%; width: 20%; background: linear-gradient(90deg, var(--orange), var(--orange-2)); transition: width .5s var(--ease); }
+.proc__panels { margin-top: clamp(28px, 4vw, 44px); }
+.proc__panel { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(24px, 4vw, 48px); align-items: center; }
+.proc__panel[hidden] { display: none; }
+.proc__panel.is-active { animation: panelIn .5s var(--ease) both; }
+@keyframes panelIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.proc__panel-step { display: inline-block; font-size: .74rem; letter-spacing: .2em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+.proc__panel-body h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 14px; }
+.proc__panel-body p { color: var(--soft); max-width: 60ch; }
+.proc__panel-body .ticks { margin-top: 20px; }
+.proc__panel-media { aspect-ratio: 4/3; background-size: cover; background-position: center; border: 1px solid var(--line); border-radius: var(--radius); }
+
+@media (max-width: 860px) { .proc__panel { grid-template-columns: 1fr; } .proc__panel-media { order: -1; } }
+@media (max-width: 680px) { .proc__tabs { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .proc__tabs { grid-template-columns: 1fr; } }
+
+/* ===================================================================
+   Feasibility calculator
+   =================================================================== */
+.calc__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(22px, 4vw, 44px); margin-top: clamp(34px, 5vw, 52px); align-items: stretch; }
+.calc__controls { display: grid; gap: 30px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(24px, 4vw, 38px); }
+.calc__field { display: grid; gap: 16px; }
+.calc__field label { display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; color: var(--soft); font-size: .95rem; }
+.calc__field label b { color: var(--text); font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 4px; background: var(--line-strong); outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--orange); cursor: pointer; border: 3px solid var(--navy-850); box-shadow: 0 0 0 1px var(--orange); transition: transform .2s var(--ease); }
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.14); }
+input[type=range]::-moz-range-thumb { width: 20px; height: 20px; border: 3px solid var(--navy-850); border-radius: 50%; background: var(--orange); cursor: pointer; }
+.calc__seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.calc__seg button { padding: 12px 0; border: 1px solid var(--line-strong); border-radius: var(--radius); background: transparent; color: var(--soft); font-weight: 600; transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease); }
+.calc__seg button:hover { color: var(--text); border-color: var(--orange); }
+.calc__seg button.is-active { background: var(--orange); color: #fff; border-color: var(--orange); }
+.calc__results { background: linear-gradient(160deg, var(--surface-2), var(--surface)); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(24px, 4vw, 38px); display: grid; gap: 18px; align-content: start; }
+.calc__result { display: flex; flex-direction: column; gap: 5px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.calc__rnum { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4vw, 2.7rem); line-height: 1; color: var(--text); display: flex; align-items: baseline; gap: 6px; }
+.calc__result--hero .calc__rnum { color: var(--orange); }
+.calc__unit { font-size: 1rem; color: var(--mute); font-family: var(--font-body); font-weight: 600; }
+.calc__rlabel { color: var(--soft); font-size: .92rem; }
+.calc__results .btn { margin-top: 8px; }
+.calc__note { color: var(--mute); font-size: .82rem; line-height: 1.55; }
+
+@media (max-width: 820px) { .calc__grid { grid-template-columns: 1fr; } }

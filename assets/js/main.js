@@ -167,6 +167,90 @@
     });
   }
 
+  /* ----- Interactive process (tabs) ----- */
+  var proc = document.querySelector(".proc");
+  if (proc) {
+    var pTabs = Array.prototype.slice.call(proc.querySelectorAll(".proc__tab"));
+    var pPanels = Array.prototype.slice.call(proc.querySelectorAll(".proc__panel"));
+    var pRail = proc.querySelector(".proc__rail i");
+    function activateStep(i) {
+      pTabs.forEach(function (t, j) {
+        var on = j === i;
+        t.classList.toggle("is-active", on);
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      pPanels.forEach(function (p, j) {
+        var on = j === i;
+        p.hidden = !on;
+        p.classList.toggle("is-active", on);
+      });
+      if (pRail) pRail.style.width = ((i + 1) / pTabs.length * 100) + "%";
+    }
+    pTabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { activateStep(i); });
+      t.addEventListener("keydown", function (e) {
+        var n;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") n = (i + 1) % pTabs.length;
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") n = (i - 1 + pTabs.length) % pTabs.length;
+        else if (e.key === "Home") n = 0;
+        else if (e.key === "End") n = pTabs.length - 1;
+        else return;
+        e.preventDefault(); activateStep(n); pTabs[n].focus();
+      });
+    });
+    activateStep(0);
+  }
+
+  /* ----- Feasibility calculator ----- */
+  var calc = document.getElementById("feasibility");
+  if (calc) {
+    var fp = document.getElementById("calcFootprint");
+    var effEl = document.getElementById("calcEff");
+    var seg = document.getElementById("calcStoreys");
+    var fpOut = document.getElementById("calcFootprintOut");
+    var effOut = document.getElementById("calcEffOut");
+    var grossEl = document.getElementById("calcGross");
+    var nraEl = document.getElementById("calcNra");
+    var unitsEl = document.getElementById("calcUnits");
+    var storeys = 1;
+    var AVG_UNIT = 8; // m² average unit (indicative)
+    var cur = { gross: 0, nra: 0, units: 0 };
+    function fmt(n) { return Math.round(n).toLocaleString("en-AU"); }
+    function tween(el, key, target) {
+      if (prefersReduced) { el.textContent = fmt(target); cur[key] = target; return; }
+      var from = cur[key], start = null, dur = 450;
+      (function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(from + (target - from) * e);
+        if (p < 1) requestAnimationFrame(step);
+        else cur[key] = target;
+      })(performance.now());
+    }
+    function update(animate) {
+      var footprint = +fp.value, eff = +effEl.value / 100;
+      var gross = footprint * storeys, nra = gross * eff, units = nra / AVG_UNIT;
+      fpOut.textContent = (+fp.value).toLocaleString("en-AU") + " m²";
+      effOut.textContent = effEl.value + "%";
+      if (animate === false) {
+        grossEl.textContent = fmt(gross); nraEl.textContent = fmt(nra); unitsEl.textContent = fmt(units);
+        cur = { gross: gross, nra: nra, units: units };
+      } else {
+        tween(grossEl, "gross", gross); tween(nraEl, "nra", nra); tween(unitsEl, "units", units);
+      }
+    }
+    fp.addEventListener("input", function () { update(true); });
+    effEl.addEventListener("input", function () { update(true); });
+    seg.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      storeys = +b.getAttribute("data-v");
+      Array.prototype.forEach.call(seg.children, function (c) { c.classList.toggle("is-active", c === b); });
+      update(true);
+    });
+    update(false);
+  }
+
   /* ----- Footer year ----- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
