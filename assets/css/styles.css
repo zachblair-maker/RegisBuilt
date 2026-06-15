@@ -899,3 +899,16 @@ body.is-leaving { animation: pageOut .34s var(--ease) forwards; }
   .case-layout { grid-template-columns: 1fr; }
   .case-aside { position: static; }
 }
+
+/* ===================================================================
+   Mobile menu fix: a backdrop-filter on the (fixed) header makes the
+   fixed nav resolve to the header box once scrolled. Drop it while the
+   menu is open so the overlay fills the viewport; allow it to scroll.
+   =================================================================== */
+@media (max-width: 720px) {
+  .nav { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  body.nav-lock .site-header {
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    background: transparent !important; box-shadow: none !important; border-bottom-color: transparent !important;
+  }
+}
