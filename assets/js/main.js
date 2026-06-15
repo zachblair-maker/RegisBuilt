@@ -167,6 +167,55 @@
     });
   }
 
+  /* ----- Feasibility calculator ----- */
+  var calc = document.getElementById("feasibility");
+  if (calc) {
+    var fp = document.getElementById("calcFootprint");
+    var effEl = document.getElementById("calcEff");
+    var seg = document.getElementById("calcStoreys");
+    var fpOut = document.getElementById("calcFootprintOut");
+    var effOut = document.getElementById("calcEffOut");
+    var grossEl = document.getElementById("calcGross");
+    var nraEl = document.getElementById("calcNra");
+    var unitsEl = document.getElementById("calcUnits");
+    var storeys = 1;
+    var AVG_UNIT = 8; // m² average unit (indicative)
+    var cur = { gross: 0, nra: 0, units: 0 };
+    function fmt(n) { return Math.round(n).toLocaleString("en-AU"); }
+    function tween(el, key, target) {
+      if (prefersReduced) { el.textContent = fmt(target); cur[key] = target; return; }
+      var from = cur[key], start = null, dur = 450;
+      (function stepFn(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(from + (target - from) * e);
+        if (p < 1) requestAnimationFrame(stepFn);
+        else cur[key] = target;
+      })(performance.now());
+    }
+    function update(animate) {
+      var footprint = +fp.value, eff = +effEl.value / 100;
+      var gross = footprint * storeys, nra = gross * eff, units = nra / AVG_UNIT;
+      fpOut.textContent = (+fp.value).toLocaleString("en-AU") + " m²";
+      effOut.textContent = effEl.value + "%";
+      if (animate === false) {
+        grossEl.textContent = fmt(gross); nraEl.textContent = fmt(nra); unitsEl.textContent = fmt(units);
+        cur = { gross: gross, nra: nra, units: units };
+      } else {
+        tween(grossEl, "gross", gross); tween(nraEl, "nra", nra); tween(unitsEl, "units", units);
+      }
+    }
+    fp.addEventListener("input", function () { update(true); });
+    effEl.addEventListener("input", function () { update(true); });
+    seg.addEventListener("click", function (e) {
+      var btn = e.target.closest("button"); if (!btn) return;
+      storeys = +btn.getAttribute("data-v");
+      Array.prototype.forEach.call(seg.children, function (c) { c.classList.toggle("is-active", c === btn); });
+      update(true);
+    });
+    update(false);
+  }
+
   /* ----- Footer year ----- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
