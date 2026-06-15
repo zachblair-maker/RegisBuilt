@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#14305a"/><stop offset="0.6" stop-color="#0b1d38"/><stop offset="1" stop-color="#06152b"/>
+      <stop offset="0" stop-color="#2C3037"/><stop offset="0.6" stop-color="#1A1D21"/><stop offset="1" stop-color="#14161A"/>
     </linearGradient>
     <pattern id="doors" width="120" height="160" patternUnits="userSpaceOnUse">
       <rect x="14" y="14" width="92" height="132" rx="4" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="2"/>
@@ -17,6 +17,6 @@
     <rect x="0" y="36" width="48" height="3" fill="#FF4F00"/>
     <text x="0" y="18" fill="#FF4F00" font-family="Arial,sans-serif" font-size="20" letter-spacing="5" opacity="0.9">REGISBUILT</text>
     <text x="0" y="96" fill="#ffffff" font-family="Georgia,'Times New Roman',serif" font-size="50">Kennards Truganina</text>
-    <text x="0" y="138" fill="#AEBCD0" font-family="Arial,sans-serif" font-size="23">Design \& Construction · 2020</text>
+    <text x="0" y="138" fill="#B4B6BA" font-family="Arial,sans-serif" font-size="23">Design \& Construction · 2020</text>
   </g>
 </svg>

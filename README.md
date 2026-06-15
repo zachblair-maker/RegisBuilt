@@ -10,14 +10,14 @@ It's fast, dependency-free, accessible, and easy to maintain.
 
 | Token | Hex | Use |
 |-------|-----|-----|
-| Navy | `#06152B` / `#0A1F3C` | Anchor sections (hero, projects, CTA, footer) |
+| Charcoal | `#14161A` / `#1E2125` | Anchor sections (hero, projects, CTA, footer) |
 | International Orange | `#FF4F00` | Primary accent / calls to action |
 | White / paper | `#FFFFFF` / `#F5F6F8` | Editorial light sections |
-| Navy ink | `#0A1F3C` | Body text on light |
+| Charcoal ink | `#1E2125` | Body text on light |
 
 Type: **Fraunces** (editorial serif display) + **Inter** (body), via Google
 Fonts with a system-font fallback. The design alternates light editorial
-sections with deep-navy anchor sections for a premium, non-"ecommerce" feel.
+sections with deep charcoal-grey anchor sections for a premium, non-"ecommerce" feel.
 
 ## Stack
 
