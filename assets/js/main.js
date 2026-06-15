@@ -167,6 +167,27 @@
     });
   }
 
+  /* ----- Cinematic parallax (full-bleed showcase media) ----- */
+  var pxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+  if (pxEls.length && !prefersReduced && window.matchMedia("(min-width: 760px)").matches) {
+    var pxTick = false;
+    function pxUpdate() {
+      var vh = window.innerHeight;
+      pxEls.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;          // skip off-screen
+        var prog = (r.top + r.height / 2 - vh / 2) / vh;  // -1 .. 1 through centre
+        el.style.transform = "translate3d(0," + (prog * -64).toFixed(1) + "px,0) scale(1.14)";
+      });
+      pxTick = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!pxTick) { pxTick = true; requestAnimationFrame(pxUpdate); }
+    }, { passive: true });
+    window.addEventListener("resize", pxUpdate, { passive: true });
+    pxUpdate();
+  }
+
   /* ----- Feasibility calculator ----- */
   var calc = document.getElementById("feasibility");
   if (calc) {
