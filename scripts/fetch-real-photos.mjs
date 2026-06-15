@@ -14,8 +14,12 @@
  * The live site sits behind SiteGround's anti-bot WAF. From a normal
  * (residential) connection the images usually download with a plain request;
  * if the WAF issues its proof-of-work "Robot Challenge", this script solves it
- * automatically and retries. Datacenter / CI IPs are often hard-blocked — if
- * every request returns 403, run this from a normal machine instead.
+ * automatically and retries.
+ *
+ * Datacenter / CI IPs are often hard-blocked (403 on everything). When the live
+ * site fails, the script falls back to the Internet Archive's Wayback Machine —
+ * so it also works from a cloud session **provided the environment's network
+ * policy allows `archive.org` and `web.archive.org`**.
  *
  * Photo -> person mapping was confirmed from the live /about/ page.
  * Project case-study photos are intentionally NOT touched: those live only on
@@ -92,9 +96,29 @@ async function download(srcPath, destRel) {
       console.log(`  ✓ ${destRel}`); return true;
     }
     if (res.status === 202) { await res.text(); await clearChallenge(srcPath); await sleep(3000); }
-    else { await res.arrayBuffer().catch(() => {}); console.log(`  … ${res.status} on ${srcPath} (retry ${a + 1})`); await sleep(8000); }
+    else { await res.arrayBuffer().catch(() => {}); console.log(`  … ${res.status} on ${srcPath} (retry ${a + 1})`); await sleep(5000); }
   }
+  // Live site blocked (WAF / hard 403)? Fall back to the Wayback Machine.
+  const buf = await wayback(ORIGIN + srcPath);
+  if (buf) { fs.writeFileSync(dest, buf); console.log(`  ✓ ${destRel}  (via web.archive.org)`); return true; }
   console.log(`  ✗ FAILED ${srcPath}`); return false;
+}
+// Fetch the raw original bytes of a URL from the Internet Archive's Wayback
+// Machine. Requires the network policy to allow archive.org + web.archive.org.
+async function wayback(originUrl) {
+  try {
+    const api = `https://archive.org/wayback/available?url=${encodeURIComponent(originUrl)}`;
+    const r = await fetch(api, { headers: { 'User-Agent': UA } });
+    if (!r.ok) return null;
+    const j = await r.json();
+    const snap = j && j.archived_snapshots && j.archived_snapshots.closest;
+    if (!snap || !snap.available) return null;
+    // Insert the "id_" modifier after the timestamp to get the raw resource.
+    const raw = snap.url.replace(/(\/web\/\d+)\//, '$1id_/').replace('http://', 'https://');
+    const res = await fetch(raw, { headers: { 'User-Agent': UA } });
+    if (res.ok && /image\//.test(res.headers.get('content-type') || '')) return Buffer.from(await res.arrayBuffer());
+  } catch { /* ignore */ }
+  return null;
 }
 function wire(file, replacements) {
   const fp = path.join(ROOT, file);
