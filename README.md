@@ -10,12 +10,14 @@ It's fast, dependency-free, accessible, and easy to maintain.
 
 | Token | Hex | Use |
 |-------|-----|-----|
-| Black | `#0A0B0D` | Base background |
-| Blue  | `#1F5FA8` / `#3B8FE0` | Structure, depth, secondary accents |
-| Orange| `#F26522` / `#FF7E33` | Primary accent / calls to action |
+| Navy | `#06152B` / `#0A1F3C` | Anchor sections (hero, projects, CTA, footer) |
+| International Orange | `#FF4F00` | Primary accent / calls to action |
+| White / paper | `#FFFFFF` / `#F5F6F8` | Editorial light sections |
+| Navy ink | `#0A1F3C` | Body text on light |
 
-Type: **Space Grotesk** (display) + **Inter** (body), via Google Fonts with a
-system-font fallback.
+Type: **Fraunces** (editorial serif display) + **Inter** (body), via Google
+Fonts with a system-font fallback. The design alternates light editorial
+sections with deep-navy anchor sections for a premium, non-"ecommerce" feel.
 
 ## Stack
 
@@ -23,13 +25,18 @@ Plain **HTML + CSS + vanilla JS** — no build step, no framework, no
 dependencies. Open `index.html` in any browser, or serve the folder.
 
 ```
-index.html
+index.html           # home
+team.html            # team page (pulled from the live About page)
 assets/
   css/styles.css     # full design system
   js/main.js         # header state, mobile nav, scroll reveals,
-                     # counters, hero parallax, active-nav, form
-  img/projects/*.svg # branded placeholder imagery (see below)
+                     # counters, active-nav, form
+  img/projects/*.svg # branded placeholder project imagery (see below)
+  img/team/*.svg     # initial-based placeholder team avatars
 ```
+
+Office: **26 Connell Road, Oakleigh VIC 3167** · 1300 388 224 ·
+info@regisbuilt.com.au
 
 ### Run locally
 

@@ -18,6 +18,14 @@ broken. Replace them with real RegisBuilt photography to finish the site.
 
 Recommended: landscape, ~1600×1067px or larger, JPG/WebP, optimised for web.
 
+## Team photos (`assets/img/team/`)
+
+Placeholder initial-avatars are in place for each team member. Replace with
+real headshots (portrait, ~800×1000px) using the same base filenames:
+`anthony-regis`, `ken-snow`, `jason-crisafi`, `jonathan-buzgau`,
+`areti-waterson`, `kobe-regis` — then update the `.svg` extension in
+`team.html` (same process as Option A below).
+
 ## How to swap in real photos
 
 **Option A — keep the filenames simple (recommended)**
