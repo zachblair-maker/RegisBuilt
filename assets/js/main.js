@@ -293,11 +293,51 @@
     });
   }
 
-  /* ----- Load intro ----- */
+  /* ----- Scroll-driven horizontal gallery ----- */
+  var hg = document.querySelector(".hgallery");
+  if (hg && fine && !prefersReduced && window.matchMedia("(min-width: 900px)").matches) {
+    var hgTrack = hg.querySelector(".hgallery__track");
+    hg.classList.add("is-pinned");
+    function hgSize() {
+      var extra = Math.max(0, hgTrack.scrollWidth - window.innerWidth);
+      hg.style.height = (window.innerHeight + extra) + "px";
+    }
+    function hgUpdate() {
+      var total = hg.offsetHeight - window.innerHeight;
+      var passed = Math.min(Math.max(-hg.getBoundingClientRect().top, 0), total);
+      var prog = total > 0 ? passed / total : 0;
+      var maxX = Math.max(0, hgTrack.scrollWidth - window.innerWidth);
+      hgTrack.style.transform = "translate3d(" + (-prog * maxX).toFixed(1) + "px,0,0)";
+    }
+    var hgTick = false;
+    window.addEventListener("scroll", function () { if (!hgTick) { hgTick = true; requestAnimationFrame(function () { hgUpdate(); hgTick = false; }); } }, { passive: true });
+    window.addEventListener("resize", function () { hgSize(); hgUpdate(); }, { passive: true });
+    window.addEventListener("load", function () { hgSize(); hgUpdate(); });
+    hgSize(); hgUpdate();
+  }
+
+  /* ----- Branded intro / load sequence ----- */
   function markLoaded() { document.body.classList.add("is-loaded"); }
-  if (document.readyState === "complete") requestAnimationFrame(markLoaded);
-  else window.addEventListener("load", function () { requestAnimationFrame(markLoaded); });
-  setTimeout(markLoaded, 1400); // safety fallback
+  var pre = document.getElementById("preloader");
+  if (pre) {
+    document.body.classList.add("preloading");
+    var t0 = Date.now(), MIN = 1150, done = false;
+    function finishPre() {
+      if (done) return; done = true;
+      pre.classList.add("is-done");
+      document.body.classList.remove("preloading");
+      markLoaded();
+      setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 1100);
+    }
+    function schedule() { setTimeout(finishPre, Math.max(0, MIN - (Date.now() - t0))); }
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule);
+    setTimeout(finishPre, 2800); // safety
+  } else {
+    if (document.readyState === "complete") requestAnimationFrame(markLoaded);
+    else window.addEventListener("load", function () { requestAnimationFrame(markLoaded); });
+    setTimeout(markLoaded, 1400); // safety fallback
+  }
 
   /* ----- Footer year ----- */
   var year = document.getElementById("year");
