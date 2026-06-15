@@ -183,11 +183,13 @@ button { font: inherit; cursor: pointer; }
 .trust { padding: 56px 0; background: var(--navy-900); border-bottom: 1px solid var(--line); }
 .trust__label { text-align: center; color: var(--mute); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 34px; }
 .marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
-.marquee__track { display: flex; gap: 64px; width: max-content; animation: marquee 40s linear infinite; }
+.marquee__track { display: flex; gap: 28px; width: max-content; animation: marquee 45s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-50%); } }
-.logo-chip { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; color: #6B6F77; white-space: nowrap; transition: color .3s var(--ease); }
-.logo-chip:hover { color: var(--text); }
+.logo-chip { flex: none; display: inline-flex; align-items: center; justify-content: center; height: 76px; padding: 0 30px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px -22px rgba(0,0,0,.7); transition: transform .3s var(--ease); }
+.logo-chip img { height: 34px; width: auto; max-width: 188px; object-fit: contain; opacity: .9; transition: opacity .3s var(--ease); }
+.logo-chip:hover { transform: translateY(-3px); }
+.logo-chip:hover img { opacity: 1; }
 
 /* --------------------------- Sections ---------------------------- */
 .section { padding: clamp(84px, 12vw, 150px) 0; background: var(--navy-900); }

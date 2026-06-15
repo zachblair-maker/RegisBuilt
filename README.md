@@ -57,15 +57,22 @@ python3 -m http.server 8000
 - Accessible contact form (demo handler — wire up to email/CRM to go live)
 - Fully responsive; respects `prefers-reduced-motion`
 
-## Images — IMPORTANT
+## Images
 
-The placeholder images in `assets/img/projects/` are branded SVGs, **not** the
-real project photos. The build environment's network policy blocked access to
-`regisbuilt.com.au` and image CDNs, so the original photography could not be
-downloaded automatically.
+The site now ships with the **real RegisBuilt photography** sourced from the
+live site:
 
-To use the real photos, see **[`assets/img/IMAGES.md`](assets/img/IMAGES.md)**
-for the exact list of slots and the two-step swap process.
+- **Team headshots** (`assets/img/team/`) — the six people from the About page.
+- **Project / case-study photos** (`assets/img/projects/`) — real completed
+  facilities. Brand-accurate where a brand is visible (Kennards Truganina &
+  Craigieburn, Public Self Storage); the remaining slots use real RegisBuilt
+  facility photography that doesn't show a competing brand.
+- **Client logos** (`assets/img/clients/`) — Kennards, Storage King, Public
+  Self Storage, Store&More, StoreLocal and Jim's, shown in the trust marquee.
+
+The original branded SVG placeholders are kept in the repo as fallbacks. To
+re-pull or refresh imagery from the live site, run
+**`node scripts/fetch-real-photos.mjs`** (see `assets/img/IMAGES.md`).
 
 ## Content sources
 
@@ -75,7 +82,8 @@ before publishing — particularly project dates and statistics.
 
 ## Going live — next steps
 
-1. Drop in the real project photos (see `IMAGES.md`).
-2. Connect the contact form to an email service or CRM endpoint.
-3. Confirm all copy and figures with the RegisBuilt team.
-4. Add analytics + a real Open Graph share image.
+1. Connect the contact form to an email service or CRM endpoint.
+2. Confirm all copy and figures with the RegisBuilt team — in particular which
+   facility photo belongs to which named case study (the project-photo mapping
+   is brand-accurate but the exact branch should be confirmed).
+3. Add analytics + a real Open Graph share image.
