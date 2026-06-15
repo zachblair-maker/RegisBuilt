@@ -60,7 +60,8 @@
     var target = parseFloat(el.getAttribute("data-count")) || 0;
     var prefix = el.getAttribute("data-prefix") || "";
     var suffix = el.getAttribute("data-suffix") || "";
-    var fmt = function (n) { return Math.round(n).toLocaleString("en-AU"); };
+    var dec = parseInt(el.getAttribute("data-decimals"), 10) || 0;
+    var fmt = function (n) { return Number(n.toFixed(dec)).toLocaleString("en-AU", { minimumFractionDigits: dec, maximumFractionDigits: dec }); };
     if (prefersReduced) { el.textContent = prefix + fmt(target) + suffix; return; }
     var dur = 1600, start = null;
     function step(ts) {

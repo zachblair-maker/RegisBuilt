@@ -806,7 +806,7 @@ body.is-leaving { animation: pageOut .34s var(--ease) forwards; }
 @media (max-width: 420px) { .proc__tabs { grid-template-columns: 1fr; } }
 
 /* ---- Animated project stats (case-study) ---- */
-.case-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line);
+.case-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line);
   border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-top: clamp(20px, 3vw, 32px); }
 .case-stat { background: var(--navy-900); padding: 32px 28px; display: flex; flex-direction: column; gap: 16px; transition: background .4s var(--ease); }
 .case-stat:hover { background: var(--surface); }
@@ -823,3 +823,6 @@ body.is-leaving { animation: pageOut .34s var(--ease) forwards; }
   .hero__video { animation: heroSlowZoom 32s ease-in-out infinite alternate; }
   @keyframes heroSlowZoom { from { transform: scale(1.02); } to { transform: scale(1.09); } }
 }
+
+/* keep stat figures on a single line */
+.case-stat__num { font-size: clamp(1.5rem, 2.1vw, 2.15rem); white-space: nowrap; }
