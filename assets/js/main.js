@@ -60,13 +60,14 @@
     var target = parseFloat(el.getAttribute("data-count")) || 0;
     var prefix = el.getAttribute("data-prefix") || "";
     var suffix = el.getAttribute("data-suffix") || "";
-    if (prefersReduced) { el.textContent = prefix + target + suffix; return; }
+    var fmt = function (n) { return Math.round(n).toLocaleString("en-AU"); };
+    if (prefersReduced) { el.textContent = prefix + fmt(target) + suffix; return; }
     var dur = 1600, start = null;
     function step(ts) {
       if (!start) start = ts;
       var p = Math.min((ts - start) / dur, 1);
       var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = prefix + Math.round(target * eased) + suffix;
+      el.textContent = prefix + fmt(target * eased) + suffix;
       if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -255,30 +256,35 @@
 
   var fine = window.matchMedia("(pointer: fine)").matches;
 
-  /* ----- Custom cursor (dot + lagging ring) ----- */
-  if (fine && !prefersReduced) {
-    var dot = document.createElement("div"); dot.className = "cursor-dot";
-    var ring = document.createElement("div"); ring.className = "cursor-ring";
-    document.body.appendChild(dot); document.body.appendChild(ring);
-    document.body.classList.add("cursor-on");
-    var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, seen = false;
-    window.addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = "translate(" + mx + "px," + my + "px)";
-      if (!seen) { seen = true; rx = mx; ry = my; }
-    }, { passive: true });
-    (function ringLoop() {
-      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
-      requestAnimationFrame(ringLoop);
-    })();
-    var hoverSel = "a,button,input,textarea,select,label,.filter-btn,.calc__seg button,.project,.logo-chip";
-    document.addEventListener("mouseover", function (e) { if (e.target.closest(hoverSel)) ring.classList.add("is-hover"); });
-    document.addEventListener("mouseout", function (e) { if (e.target.closest(hoverSel)) ring.classList.remove("is-hover"); });
-    document.addEventListener("mousedown", function () { ring.classList.add("is-down"); });
-    document.addEventListener("mouseup", function () { ring.classList.remove("is-down"); });
-    document.addEventListener("mouseleave", function () { dot.style.opacity = ring.style.opacity = "0"; });
-    document.addEventListener("mouseenter", function () { dot.style.opacity = ring.style.opacity = "1"; });
+  /* ----- Interactive process tabs ----- */
+  var proc = document.querySelector(".proc");
+  if (proc) {
+    var pTabs = Array.prototype.slice.call(proc.querySelectorAll(".proc__tab"));
+    var pPanels = Array.prototype.slice.call(proc.querySelectorAll(".proc__panel"));
+    var pRail = proc.querySelector(".proc__rail i");
+    function activateStep(i) {
+      pTabs.forEach(function (t, j) {
+        var on = j === i;
+        t.classList.toggle("is-active", on);
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      pPanels.forEach(function (p, j) { var on = j === i; p.hidden = !on; p.classList.toggle("is-active", on); });
+      if (pRail) pRail.style.width = ((i + 1) / pTabs.length * 100) + "%";
+    }
+    pTabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { activateStep(i); });
+      t.addEventListener("keydown", function (e) {
+        var n;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") n = (i + 1) % pTabs.length;
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") n = (i - 1 + pTabs.length) % pTabs.length;
+        else if (e.key === "Home") n = 0;
+        else if (e.key === "End") n = pTabs.length - 1;
+        else return;
+        e.preventDefault(); activateStep(n); pTabs[n].focus();
+      });
+    });
+    activateStep(0);
   }
 
   /* ----- Magnetic CTAs ----- */
@@ -337,6 +343,29 @@
     if (document.readyState === "complete") requestAnimationFrame(markLoaded);
     else window.addEventListener("load", function () { requestAnimationFrame(markLoaded); });
     setTimeout(markLoaded, 1400); // safety fallback
+  }
+
+  /* ----- Cross-document page transition ----- */
+  if (!prefersReduced) {
+    document.addEventListener("click", function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest("a");
+      if (!a) return;
+      if (a.target === "_blank" || a.hasAttribute("download") || a.getAttribute("rel") === "external") return;
+      var href = a.getAttribute("href") || "";
+      if (!href || href.charAt(0) === "#" || href.indexOf("mailto:") === 0 || href.indexOf("tel:") === 0) return;
+      var url;
+      try { url = new URL(a.href, location.href); } catch (err) { return; }
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname) return; // same page (anchors handled by smooth scroll)
+      e.preventDefault();
+      document.body.classList.add("is-leaving");
+      setTimeout(function () { location.href = a.href; }, 300);
+    });
+    // Restore on back/forward (page shown from bfcache)
+    window.addEventListener("pageshow", function (e) {
+      if (e.persisted) document.body.classList.remove("is-leaving");
+    });
   }
 
   /* ----- Footer year ----- */
