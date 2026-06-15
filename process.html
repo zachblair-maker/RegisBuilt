@@ -14,10 +14,10 @@
   <meta property="og:description" content="Our five-stage process &mdash; consult, plan, design, build and handover &mdash; led end to end by a single accountable team." />
   <meta property="og:image" content="https://zachblair-maker.github.io/RegisBuilt/assets/img/brand/og-image.svg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23202225'/%3E%3Ctext x='32' y='48' font-family='Georgia,serif' font-size='46' font-weight='700' fill='%23FF4F00' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23202225'/%3E%3Ctext x='32' y='48' font-family='Georgia,serif' font-size='33' font-weight='700' fill='%23FF4F00' text-anchor='middle'%3ERB%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -28,13 +28,14 @@
       <a class="brand" href="index.html" aria-label="RegisBuilt home">
         <svg class="brand__mark" viewBox="0 0 320 260" aria-hidden="true">
           <g fill-rule="evenodd">
-            <path transform="translate(118,14)" d="M44 28H128C164 28 184 54 184 90C184 122 164 146 132 150L188 232H140L98 156H80V232H44ZM80 64V120H124C142 120 150 108 150 90C150 70 142 64 124 64Z" fill="#4A4D52"/>
+            <path transform="translate(118,14)" d="M44 28H120C156 28 178 48 178 79C178 107 160 124 128 128C162 132 186 152 186 184C186 214 160 232 122 232H44ZM80 62H116C140 62 152 70 152 87C152 104 138 112 116 112H80ZM80 150H120C146 150 158 161 158 184C158 207 144 214 120 214H80Z" fill="#4A4D52"/>
             <path transform="translate(0,14)" d="M44 28H128C164 28 184 54 184 90C184 122 164 146 132 150L188 232H140L98 156H80V232H44ZM80 64V120H124C142 120 150 108 150 90C150 70 142 64 124 64Z" fill="#A6A8AC"/>
           </g>
         </svg>
         <span class="brand__name"><span class="brand__accent">REGIS</span>BUILT</span>
       </a>
       <nav class="nav" id="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
         <a href="services.html">Services</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="process.html" class="is-active">Process</a>
@@ -68,33 +69,64 @@
 
     <section class="section section--tint process">
       <div class="container">
-        <ol class="timeline">
-          <li class="timeline__step reveal" data-reveal>
-            <span class="timeline__num">01</span>
-            <h3>Consult</h3>
-            <p>We assess the site, the market and the numbers to confirm the opportunity stacks up.</p>
-          </li>
-          <li class="timeline__step reveal" data-reveal>
-            <span class="timeline__num">02</span>
-            <h3>Plan</h3>
-            <p>Town planning, permits and authority approvals &mdash; coordinated and tracked to keep momentum.</p>
-          </li>
-          <li class="timeline__step reveal" data-reveal>
-            <span class="timeline__num">03</span>
-            <h3>Design</h3>
-            <p>Layouts engineered to maximise rentable area, optimise unit mix and simplify the build.</p>
-          </li>
-          <li class="timeline__step reveal" data-reveal>
-            <span class="timeline__num">04</span>
-            <h3>Build</h3>
-            <p>Construction managed tightly to program and budget, with quality control at every stage.</p>
-          </li>
-          <li class="timeline__step reveal" data-reveal>
-            <span class="timeline__num">05</span>
-            <h3>Handover</h3>
-            <p>A finished, fitted-out facility, delivered ready to operate.</p>
-          </li>
-        </ol>
+        <div class="proc reveal" data-reveal>
+          <ol class="proc__tabs" role="tablist" aria-label="Our five-stage process">
+            <li role="presentation"><button class="proc__tab is-active" id="ptab0" role="tab" aria-selected="true" aria-controls="ppanel0"><span class="proc__num">01</span><span class="proc__label">Consult</span></button></li>
+            <li role="presentation"><button class="proc__tab" id="ptab1" role="tab" aria-selected="false" aria-controls="ppanel1" tabindex="-1"><span class="proc__num">02</span><span class="proc__label">Plan</span></button></li>
+            <li role="presentation"><button class="proc__tab" id="ptab2" role="tab" aria-selected="false" aria-controls="ppanel2" tabindex="-1"><span class="proc__num">03</span><span class="proc__label">Design</span></button></li>
+            <li role="presentation"><button class="proc__tab" id="ptab3" role="tab" aria-selected="false" aria-controls="ppanel3" tabindex="-1"><span class="proc__num">04</span><span class="proc__label">Build</span></button></li>
+            <li role="presentation"><button class="proc__tab" id="ptab4" role="tab" aria-selected="false" aria-controls="ppanel4" tabindex="-1"><span class="proc__num">05</span><span class="proc__label">Handover</span></button></li>
+          </ol>
+          <div class="proc__rail" aria-hidden="true"><i></i></div>
+
+          <div class="proc__panels">
+            <div class="proc__panel is-active" id="ppanel0" role="tabpanel" aria-labelledby="ptab0" tabindex="0">
+              <div class="proc__panel-body">
+                <span class="proc__panel-step">Stage 01 / 05</span>
+                <h3>Consult</h3>
+                <p>We start with the numbers. The site, the local market, demand and the commercial case &mdash; including indicative yields and unit mix &mdash; are assessed so you know the opportunity stacks up before a dollar is committed.</p>
+                <ul class="ticks"><li>Feasibility &amp; yield analysis</li><li>Market &amp; demand assessment</li><li>Finance and site guidance</li></ul>
+              </div>
+              <div class="proc__panel-media" style="background-image:url('assets/img/projects/about-team.jpg')"></div>
+            </div>
+            <div class="proc__panel" id="ppanel1" role="tabpanel" aria-labelledby="ptab1" tabindex="0" hidden>
+              <div class="proc__panel-body">
+                <span class="proc__panel-step">Stage 02 / 05</span>
+                <h3>Plan</h3>
+                <p>Town planning, permits and authority approvals &mdash; coordinated and tracked in-house. We manage the statutory pathway end to end to protect your program and keep momentum from day one.</p>
+                <ul class="ticks"><li>Town planning &amp; permits</li><li>Authority coordination</li><li>Program &amp; risk tracking</li></ul>
+              </div>
+              <div class="proc__panel-media" style="background-image:url('assets/img/projects/storhub-north-lakes.jpg')"></div>
+            </div>
+            <div class="proc__panel" id="ppanel2" role="tabpanel" aria-labelledby="ptab2" tabindex="0" hidden>
+              <div class="proc__panel-body">
+                <span class="proc__panel-step">Stage 03 / 05</span>
+                <h3>Design</h3>
+                <p>Layouts engineered to maximise rentable area and optimise unit mix, with structure, access and security designed around how the facility will actually operate &mdash; and how it will be built.</p>
+                <ul class="ticks"><li>Rentable-area optimisation</li><li>Unit-mix &amp; access design</li><li>Engineered to build</li></ul>
+              </div>
+              <div class="proc__panel-media" style="background-image:url('assets/img/projects/gallery-2.jpg')"></div>
+            </div>
+            <div class="proc__panel" id="ppanel3" role="tabpanel" aria-labelledby="ptab3" tabindex="0" hidden>
+              <div class="proc__panel-body">
+                <span class="proc__panel-step">Stage 04 / 05</span>
+                <h3>Build</h3>
+                <p>Construction managed tightly to program and budget by a single accountable team, with quality control at every stage and one point of contact who has been across the project since the first conversation.</p>
+                <ul class="ticks"><li>Single accountable team</li><li>Program &amp; budget control</li><li>Quality control at every stage</li></ul>
+              </div>
+              <div class="proc__panel-media" style="background-image:url('assets/img/projects/gallery-3.jpg')"></div>
+            </div>
+            <div class="proc__panel" id="ppanel4" role="tabpanel" aria-labelledby="ptab4" tabindex="0" hidden>
+              <div class="proc__panel-body">
+                <span class="proc__panel-step">Stage 05 / 05</span>
+                <h3>Handover</h3>
+                <p>A finished, fitted-out facility delivered ready to trade &mdash; commissioned, compliant and operating &mdash; with the support to back it long after the keys change hands.</p>
+                <ul class="ticks"><li>Commissioned &amp; compliant</li><li>Fitted out, ready to trade</li><li>Ongoing support</li></ul>
+              </div>
+              <div class="proc__panel-media" style="background-image:url('assets/img/projects/gallery-1.jpg')"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -114,7 +146,7 @@
         <a class="brand" href="index.html" aria-label="RegisBuilt home">
           <svg class="brand__mark" viewBox="0 0 320 260" aria-hidden="true">
           <g fill-rule="evenodd">
-            <path transform="translate(118,14)" d="M44 28H128C164 28 184 54 184 90C184 122 164 146 132 150L188 232H140L98 156H80V232H44ZM80 64V120H124C142 120 150 108 150 90C150 70 142 64 124 64Z" fill="#4A4D52"/>
+            <path transform="translate(118,14)" d="M44 28H120C156 28 178 48 178 79C178 107 160 124 128 128C162 132 186 152 186 184C186 214 160 232 122 232H44ZM80 62H116C140 62 152 70 152 87C152 104 138 112 116 112H80ZM80 150H120C146 150 158 161 158 184C158 207 144 214 120 214H80Z" fill="#4A4D52"/>
             <path transform="translate(0,14)" d="M44 28H128C164 28 184 54 184 90C184 122 164 146 132 150L188 232H140L98 156H80V232H44ZM80 64V120H124C142 120 150 108 150 90C150 70 142 64 124 64Z" fill="#A6A8AC"/>
           </g>
         </svg>
@@ -123,6 +155,7 @@
         <p class="footer__tag">Self storage design &amp; construction specialists. Engineering-led, Australian owned, building across Australia &amp; New Zealand.</p>
       </div>
       <nav class="footer__nav" aria-label="Footer">
+        <a href="index.html">Home</a>
         <a href="services.html">Services</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="process.html">Process</a>
