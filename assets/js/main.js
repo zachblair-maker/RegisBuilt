@@ -138,6 +138,35 @@
     });
   }
 
+  /* ----- Portfolio filter ----- */
+  var grid = document.getElementById("portfolioGrid");
+  if (grid) {
+    var filterBtns = Array.prototype.slice.call(document.querySelectorAll(".filter-btn"));
+    var cards = Array.prototype.slice.call(grid.querySelectorAll(".project"));
+    var empty = document.getElementById("portfolioEmpty");
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var f = btn.getAttribute("data-filter");
+        filterBtns.forEach(function (b) {
+          var active = b === btn;
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-selected", String(active));
+        });
+        var shown = 0;
+        cards.forEach(function (c) {
+          var match = f === "all" || c.getAttribute("data-category") === f;
+          c.classList.toggle("is-hidden", !match);
+          if (match) shown++;
+        });
+        // restart the stagger-in animation
+        grid.classList.remove("is-filtering");
+        void grid.offsetWidth;
+        grid.classList.add("is-filtering");
+        if (empty) empty.hidden = shown > 0;
+      });
+    });
+  }
+
   /* ----- Footer year ----- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();

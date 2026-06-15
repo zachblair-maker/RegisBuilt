@@ -49,7 +49,7 @@
 
       <nav class="nav" id="nav" aria-label="Primary">
         <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
+        <a href="portfolio.html">Portfolio</a>
         <a href="#process">Process</a>
         <a href="#about">About</a>
         <a href="team.html">Team</a>
@@ -71,31 +71,16 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="top">
       <div class="hero__bg" aria-hidden="true">
+        <div class="hero__slides">
+          <div class="hero__slide" style="background-image:url('assets/img/projects/kennards-truganina.jpg')"></div>
+          <div class="hero__slide" style="background-image:url('assets/img/projects/public-self-storage-braybrook.jpg')"></div>
+          <div class="hero__slide" style="background-image:url('assets/img/projects/kennards-craigieburn.jpg')"></div>
+          <div class="hero__slide" style="background-image:url('assets/img/projects/storhub-north-lakes.jpg')"></div>
+        </div>
+        <div class="hero__scrim"></div>
         <div class="hero__mesh"></div>
         <div class="hero__grid"></div>
         <div class="hero__watermark"></div>
-        <svg class="hero__skyline" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice">
-          <defs>
-            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#2C3037"/>
-              <stop offset="1" stop-color="#14161A"/>
-            </linearGradient>
-          </defs>
-          <g fill="url(#sky)" opacity="0.9">
-            <rect x="40" y="180" width="180" height="140"/>
-            <rect x="250" y="120" width="150" height="200"/>
-            <rect x="430" y="190" width="220" height="130"/>
-            <rect x="690" y="100" width="170" height="220"/>
-            <rect x="890" y="170" width="200" height="150"/>
-            <rect x="1120" y="140" width="160" height="180"/>
-            <rect x="1300" y="200" width="140" height="120"/>
-          </g>
-          <g stroke="#FF4F00" stroke-width="2" opacity="0.4">
-            <line x1="250" y1="150" x2="400" y2="150"/>
-            <line x1="690" y1="135" x2="860" y2="135"/>
-            <line x1="1120" y1="172" x2="1280" y2="172"/>
-          </g>
-        </svg>
       </div>
 
       <div class="container hero__inner">
@@ -222,7 +207,7 @@
         <header class="section__head reveal" data-reveal>
           <p class="eyebrow">Selected work</p>
           <h2 class="section__title">Proof, not <em>promises.</em></h2>
-          <p class="section__sub">A selection of facilities designed and built by RegisBuilt for national brands and independent operators across Australia.</p>
+          <p class="section__sub">A snapshot of facilities designed and built by RegisBuilt for national brands and independent operators. Explore every project in the full portfolio.</p>
         </header>
 
         <div class="projects__grid">
@@ -232,36 +217,6 @@
               <span class="project__tag">Design &amp; Construction</span>
               <h3>Kennards Self Storage — Truganina</h3>
               <p>Purpose-built facility on Leakes Road, Melbourne's west. Awarded 2019, handed over 2020.</p>
-              <span class="project__more">View case study <span>→</span></span>
-            </div>
-          </a>
-
-          <a class="project reveal" href="projects/kennards-cranbourne.html" data-reveal>
-            <div class="project__media" style="background-image:url('assets/img/projects/kennards-cranbourne.jpg')"></div>
-            <div class="project__body">
-              <span class="project__tag">Design &amp; Construction</span>
-              <h3>Kennards — Cranbourne West</h3>
-              <p>Multi-stage facility on Thompsons Road. Design and construction awarded 2022.</p>
-              <span class="project__more">View case study <span>→</span></span>
-            </div>
-          </a>
-
-          <a class="project reveal" href="projects/store-local-pakenham.html" data-reveal>
-            <div class="project__media" style="background-image:url('assets/img/projects/store-local-pakenham.jpg')"></div>
-            <div class="project__body">
-              <span class="project__tag">New Build</span>
-              <h3>Store Local — Pakenham</h3>
-              <p>A purpose-built self storage centre delivered for the Store Local network.</p>
-              <span class="project__more">View case study <span>→</span></span>
-            </div>
-          </a>
-
-          <a class="project reveal" href="projects/kennards-craigieburn.html" data-reveal>
-            <div class="project__media" style="background-image:url('assets/img/projects/kennards-craigieburn.jpg')"></div>
-            <div class="project__body">
-              <span class="project__tag">Design &amp; Construction</span>
-              <h3>Kennards — Craigieburn</h3>
-              <p>Operator-grade facility delivered to Kennards' national specification.</p>
               <span class="project__more">View case study <span>→</span></span>
             </div>
           </a>
@@ -276,15 +231,19 @@
             </div>
           </a>
 
-          <a class="project reveal project--lg" href="projects/storhub-north-lakes.html" data-reveal>
-            <div class="project__media" style="background-image:url('assets/img/projects/storhub-north-lakes.jpg')"></div>
+          <a class="project reveal" href="projects/kennards-craigieburn.html" data-reveal>
+            <div class="project__media" style="background-image:url('assets/img/projects/kennards-craigieburn.jpg')"></div>
             <div class="project__body">
-              <span class="project__tag">Conversion · QLD</span>
-              <h3>StorHub — North Lakes</h3>
-              <p>Warehouse-to-storage conversion in South-East Queensland. Awarded 2024.</p>
+              <span class="project__tag">Design &amp; Construction</span>
+              <h3>Kennards — Craigieburn</h3>
+              <p>Operator-grade facility delivered to Kennards' national specification.</p>
               <span class="project__more">View case study <span>→</span></span>
             </div>
           </a>
+        </div>
+
+        <div class="section__cta reveal" data-reveal>
+          <a class="btn btn--ghost btn--lg" href="portfolio.html">View full portfolio<span class="btn__arrow">→</span></a>
         </div>
       </div>
     </section>
@@ -348,6 +307,39 @@
             <li><strong>Genuine industry experience.</strong> Two decades of insight into what facility owners actually need, from design through to erection.</li>
             <li><strong>Quality and value, balanced.</strong> Built right the first time — avoiding the long-run cost of inferior materials and workmanship.</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="section stats-band" id="numbers">
+      <div class="container">
+        <header class="section__head reveal" data-reveal>
+          <p class="eyebrow">By the numbers</p>
+          <h2 class="section__title">Two decades, <em>measured in delivery.</em></h2>
+          <p class="section__sub">A specialist focus, a repeatable process, and a track record built one facility at a time.</p>
+        </header>
+        <div class="stats-grid">
+          <div class="stat-card reveal" data-reveal>
+            <span class="stat-card__num"><span data-count="20" data-suffix="+">0</span></span>
+            <span class="stat-card__label">Years specialising in self storage</span>
+            <span class="stat-card__bar"><i></i></span>
+          </div>
+          <div class="stat-card reveal" data-reveal>
+            <span class="stat-card__num"><span data-count="150" data-suffix="+">0</span></span>
+            <span class="stat-card__label">Facilities designed &amp; built</span>
+            <span class="stat-card__bar"><i></i></span>
+          </div>
+          <div class="stat-card reveal" data-reveal>
+            <span class="stat-card__num"><span data-count="5">0</span></span>
+            <span class="stat-card__label">Stage process, one accountable team</span>
+            <span class="stat-card__bar"><i></i></span>
+          </div>
+          <div class="stat-card reveal" data-reveal>
+            <span class="stat-card__num"><span data-count="2">0</span></span>
+            <span class="stat-card__label">Countries — Australia &amp; New Zealand</span>
+            <span class="stat-card__bar"><i></i></span>
+          </div>
         </div>
       </div>
     </section>
@@ -455,7 +447,7 @@
       </div>
       <nav class="footer__nav" aria-label="Footer">
         <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
+        <a href="portfolio.html">Portfolio</a>
         <a href="#process">Process</a>
         <a href="#about">About</a>
         <a href="team.html">Team</a>
