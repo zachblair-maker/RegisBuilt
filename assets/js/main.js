@@ -23,13 +23,46 @@
       var open = nav.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.body.classList.toggle("nav-lock", open);
     });
     nav.addEventListener("click", function (e) {
       if (e.target.tagName === "A") {
         nav.classList.remove("is-open");
         toggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-lock");
       }
     });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-lock");
+        toggle.focus();
+      }
+    });
+  }
+
+  /* ----- Hero video — seamless crossfade loop (two stacked videos) ----- */
+  var heroVids = document.querySelectorAll("[data-hero-video]");
+  if (heroVids.length === 2) {
+    var hv = [heroVids[0], heroVids[1]], cur = 0, swapping = false, FADE = 0.85;
+    var playSafe = function (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+    playSafe(hv[0]);
+    function heroTick(e) {
+      if (swapping || e.target !== hv[cur]) return;
+      var a = hv[cur];
+      if (!a.duration || isNaN(a.duration)) return;
+      if (a.duration - a.currentTime <= FADE) {
+        swapping = true;
+        var b = hv[1 - cur], prev = cur;
+        b.currentTime = 0; playSafe(b);
+        b.classList.add("is-active");
+        a.classList.remove("is-active");
+        cur = 1 - cur;
+        setTimeout(function () { hv[prev].pause(); swapping = false; }, FADE * 1000 + 200);
+      }
+    }
+    hv.forEach(function (v) { v.addEventListener("timeupdate", heroTick); });
   }
 
   /* ----- Scroll reveal with stagger ----- */
