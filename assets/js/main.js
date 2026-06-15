@@ -167,6 +167,27 @@
     });
   }
 
+  /* ----- Cinematic parallax (full-bleed showcase media) ----- */
+  var pxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+  if (pxEls.length && !prefersReduced && window.matchMedia("(min-width: 760px)").matches) {
+    var pxTick = false;
+    function pxUpdate() {
+      var vh = window.innerHeight;
+      pxEls.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;          // skip off-screen
+        var prog = (r.top + r.height / 2 - vh / 2) / vh;  // -1 .. 1 through centre
+        el.style.transform = "translate3d(0," + (prog * -64).toFixed(1) + "px,0) scale(1.14)";
+      });
+      pxTick = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!pxTick) { pxTick = true; requestAnimationFrame(pxUpdate); }
+    }, { passive: true });
+    window.addEventListener("resize", pxUpdate, { passive: true });
+    pxUpdate();
+  }
+
   /* ----- Feasibility calculator ----- */
   var calc = document.getElementById("feasibility");
   if (calc) {
@@ -215,6 +236,68 @@
     });
     update(false);
   }
+
+  /* ----- Scroll progress bar ----- */
+  var progress = document.createElement("div");
+  progress.className = "scroll-progress";
+  document.body.appendChild(progress);
+  var progTick = false;
+  function progUpdate() {
+    var st = window.scrollY || document.documentElement.scrollTop;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (max > 0 ? (st / max) * 100 : 0) + "%";
+    progTick = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!progTick) { progTick = true; requestAnimationFrame(progUpdate); }
+  }, { passive: true });
+  progUpdate();
+
+  var fine = window.matchMedia("(pointer: fine)").matches;
+
+  /* ----- Custom cursor (dot + lagging ring) ----- */
+  if (fine && !prefersReduced) {
+    var dot = document.createElement("div"); dot.className = "cursor-dot";
+    var ring = document.createElement("div"); ring.className = "cursor-ring";
+    document.body.appendChild(dot); document.body.appendChild(ring);
+    document.body.classList.add("cursor-on");
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, seen = false;
+    window.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = "translate(" + mx + "px," + my + "px)";
+      if (!seen) { seen = true; rx = mx; ry = my; }
+    }, { passive: true });
+    (function ringLoop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
+      requestAnimationFrame(ringLoop);
+    })();
+    var hoverSel = "a,button,input,textarea,select,label,.filter-btn,.calc__seg button,.project,.logo-chip";
+    document.addEventListener("mouseover", function (e) { if (e.target.closest(hoverSel)) ring.classList.add("is-hover"); });
+    document.addEventListener("mouseout", function (e) { if (e.target.closest(hoverSel)) ring.classList.remove("is-hover"); });
+    document.addEventListener("mousedown", function () { ring.classList.add("is-down"); });
+    document.addEventListener("mouseup", function () { ring.classList.remove("is-down"); });
+    document.addEventListener("mouseleave", function () { dot.style.opacity = ring.style.opacity = "0"; });
+    document.addEventListener("mouseenter", function () { dot.style.opacity = ring.style.opacity = "1"; });
+  }
+
+  /* ----- Magnetic CTAs ----- */
+  if (fine && !prefersReduced) {
+    Array.prototype.forEach.call(document.querySelectorAll(".btn--primary, .btn--lg"), function (m) {
+      m.addEventListener("mousemove", function (e) {
+        var r = m.getBoundingClientRect();
+        var x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+        m.style.transform = "translate(" + (x * 0.18).toFixed(1) + "px," + (y * 0.32).toFixed(1) + "px)";
+      });
+      m.addEventListener("mouseleave", function () { m.style.transform = ""; });
+    });
+  }
+
+  /* ----- Load intro ----- */
+  function markLoaded() { document.body.classList.add("is-loaded"); }
+  if (document.readyState === "complete") requestAnimationFrame(markLoaded);
+  else window.addEventListener("load", function () { requestAnimationFrame(markLoaded); });
+  setTimeout(markLoaded, 1400); // safety fallback
 
   /* ----- Footer year ----- */
   var year = document.getElementById("year");
