@@ -120,8 +120,21 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
+      var val = function (n) { var el = form.elements[n]; return el ? el.value.trim() : ""; };
+      var subject = "Project enquiry — " + (val("name") || "RegisBuilt website");
+      var body = [
+        "Name: " + val("name"),
+        "Email: " + val("email"),
+        "Phone: " + val("phone"),
+        "Project type: " + val("type"),
+        "",
+        val("message")
+      ].join("\n");
+      // No backend required: compose the enquiry in the visitor's email client.
+      // To send automatically instead, point the form at Formspree/Netlify Forms.
+      window.location.href = "mailto:info@regisbuilt.com.au?subject=" +
+        encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       if (note) { note.hidden = false; }
-      form.querySelector('button[type="submit"]').textContent = "Enquiry ready ✓";
     });
   }
 

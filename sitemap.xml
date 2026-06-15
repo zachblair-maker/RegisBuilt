@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://zachblair-maker.github.io/RegisBuilt/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zachblair-maker.github.io/RegisBuilt/team.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://zachblair-maker.github.io/RegisBuilt/projects/kennards-truganina.html</loc><priority>0.7</priority></url>
+  <url><loc>https://zachblair-maker.github.io/RegisBuilt/projects/kennards-cranbourne.html</loc><priority>0.7</priority></url>
+  <url><loc>https://zachblair-maker.github.io/RegisBuilt/projects/kennards-craigieburn.html</loc><priority>0.7</priority></url>
+  <url><loc>https://zachblair-maker.github.io/RegisBuilt/projects/store-local-pakenham.html</loc><priority>0.7</priority></url>
+  <url><loc>https://zachblair-maker.github.io/RegisBuilt/projects/public-self-storage-braybrook.html</loc><priority>0.7</priority></url>
+  <url><loc>https://zachblair-maker.github.io/RegisBuilt/projects/storhub-north-lakes.html</loc><priority>0.7</priority></url>
+</urlset>

@@ -1,42 +1,47 @@
-# Image slots
+# Images
 
-Every image on the site is referenced from `assets/img/projects/`. The files
-currently in that folder are **branded SVG placeholders** so nothing renders
-broken. Replace them with real RegisBuilt photography to finish the site.
+The site now uses **real RegisBuilt photography** pulled from the live
+`regisbuilt.com.au` site. The branded SVG placeholders remain in the repo as
+fallbacks but are no longer referenced by the pages.
 
-## The slots
+## Team (`assets/img/team/`)
 
-| File (placeholder) | Where it appears | Suggested photo |
-|--------------------|------------------|-----------------|
-| `kennards-truganina.svg`            | Projects (large) | Kennards Truganina exterior |
-| `kennards-cranbourne.svg`           | Projects         | Kennards Cranbourne West |
-| `store-local-pakenham.svg`          | Projects         | Store Local Pakenham |
-| `kennards-craigieburn.svg`          | Projects         | Kennards Craigieburn |
-| `public-self-storage-braybrook.svg` | Projects         | Public Self Storage Braybrook |
-| `storhub-north-lakes.svg`           | Projects (large) | StorHub North Lakes |
-| `about-team.svg`                    | About section    | Team / site / hero facility shot |
+| File | Person | Role |
+|------|--------|------|
+| `anthony-regis.jpg`   | Anthony Regis    | Director |
+| `ken-snow.jpg`        | Ken Snow         | Project Development Manager |
+| `jason-crisafi.jpg`   | Jason Crisafi    | Project Manager |
+| `jonathan-buzgau.jpg` | Jonathan Buzgau  | Contract Administrator |
+| `areti-waterson.png`  | Areti Waterson   | Finance Manager |
+| `kobe-regis.png`      | Kobe Regis       | "People Motivator" (the office dog) |
 
-Recommended: landscape, ~1600×1067px or larger, JPG/WebP, optimised for web.
+## Projects (`assets/img/projects/`)
 
-## How to swap in real photos
+| File | Slot | Photo |
+|------|------|-------|
+| `kennards-truganina.jpg`            | Kennards — Truganina (large) | Kennards Truganina exterior, dusk |
+| `kennards-cranbourne.jpg`           | Kennards — Cranbourne West | Kennards two-storey exterior |
+| `store-local-pakenham.jpg`          | Store Local — Pakenham | Real facility, orange roller doors (no competing brand shown) |
+| `kennards-craigieburn.jpg`          | Kennards — Craigieburn | Kennards Craigieburn exterior (labelled source) |
+| `public-self-storage-braybrook.jpg` | Public Self Storage — Braybrook | Public Self Storage aerial |
+| `storhub-north-lakes.jpg`           | StorHub — North Lakes (large) | Aerial drone shot (brand not legible) |
+| `about-team.jpg`                    | Home "about" section | RegisBuilt team on-site during construction |
+| `gallery-1/2/3.jpg`                 | Case-study galleries (shared) | Reception fitout · storage corridor · steel-frame build |
 
-**Option A — keep the filenames simple (recommended)**
+> **Accuracy note:** photos are brand-accurate where a brand is visible. For the
+> slots without a brand-matched original (Cranbourne, Store Local Pakenham,
+> StorHub North Lakes) a real RegisBuilt facility photo that does **not** show a
+> competing brand was used. Confirm the exact facility per case study with the
+> RegisBuilt team before publishing.
 
-1. Save each photo as a `.jpg` (or `.webp`) using the base names above, e.g.
-   `kennards-truganina.jpg`.
-2. In `index.html`, update the matching `background-image:url('...svg')` to
-   point at your new file extension. A one-line find/replace per image:
-   `kennards-truganina.svg` → `kennards-truganina.jpg`.
+## Clients (`assets/img/clients/`)
 
-**Option B — drop-in replacement, zero HTML edits**
+`kennards.png`, `storage-king.png`, `public-self-storage.png`,
+`store-and-more.png`, `storelocal.png`, `jims.png` — shown in the trust marquee
+on the home page.
 
-Save your photos using the **exact existing filenames including the `.svg`
-extension is not possible for JPGs** — so use Option A. (SVG is a vector
-format; real photos are raster.)
+## Re-pulling imagery
 
-## Why these aren't the originals
-
-The site was built in an environment whose network policy blocked outbound
-requests to `regisbuilt.com.au` and image CDNs (`host_not_allowed`). If you
-re-run the build with a network policy that allows that host, the original
-images can be pulled automatically — otherwise just drop them in here.
+`node scripts/fetch-real-photos.mjs` re-downloads the team headshots + a hero
+shot from the live site (solving SiteGround's bot challenge, with a Wayback
+Machine fallback) and re-wires the HTML.

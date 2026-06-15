@@ -10,12 +10,14 @@ It's fast, dependency-free, accessible, and easy to maintain.
 
 | Token | Hex | Use |
 |-------|-----|-----|
-| Black | `#0A0B0D` | Base background |
-| Blue  | `#1F5FA8` / `#3B8FE0` | Structure, depth, secondary accents |
-| Orange| `#F26522` / `#FF7E33` | Primary accent / calls to action |
+| Charcoal | `#14161A` / `#1E2125` | Anchor sections (hero, projects, CTA, footer) |
+| International Orange | `#FF4F00` | Primary accent / calls to action |
+| White / paper | `#FFFFFF` / `#F5F6F8` | Editorial light sections |
+| Charcoal ink | `#1E2125` | Body text on light |
 
-Type: **Space Grotesk** (display) + **Inter** (body), via Google Fonts with a
-system-font fallback.
+Type: **Fraunces** (editorial serif display) + **Inter** (body), via Google
+Fonts with a system-font fallback. The design alternates light editorial
+sections with deep charcoal-grey anchor sections for a premium, non-"ecommerce" feel.
 
 ## Stack
 
@@ -23,13 +25,18 @@ Plain **HTML + CSS + vanilla JS** — no build step, no framework, no
 dependencies. Open `index.html` in any browser, or serve the folder.
 
 ```
-index.html
+index.html           # home
+team.html            # team page (pulled from the live About page)
 assets/
   css/styles.css     # full design system
   js/main.js         # header state, mobile nav, scroll reveals,
-                     # counters, hero parallax, active-nav, form
-  img/projects/*.svg # branded placeholder imagery (see below)
+                     # counters, active-nav, form
+  img/projects/*.svg # branded placeholder project imagery (see below)
+  img/team/*.svg     # initial-based placeholder team avatars
 ```
+
+Office: **26 Connell Road, Oakleigh VIC 3167** · 1300 388 224 ·
+info@regisbuilt.com.au
 
 ### Run locally
 
@@ -50,15 +57,22 @@ python3 -m http.server 8000
 - Accessible contact form (demo handler — wire up to email/CRM to go live)
 - Fully responsive; respects `prefers-reduced-motion`
 
-## Images — IMPORTANT
+## Images
 
-The placeholder images in `assets/img/projects/` are branded SVGs, **not** the
-real project photos. The build environment's network policy blocked access to
-`regisbuilt.com.au` and image CDNs, so the original photography could not be
-downloaded automatically.
+The site now ships with the **real RegisBuilt photography** sourced from the
+live site:
 
-To use the real photos, see **[`assets/img/IMAGES.md`](assets/img/IMAGES.md)**
-for the exact list of slots and the two-step swap process.
+- **Team headshots** (`assets/img/team/`) — the six people from the About page.
+- **Project / case-study photos** (`assets/img/projects/`) — real completed
+  facilities. Brand-accurate where a brand is visible (Kennards Truganina &
+  Craigieburn, Public Self Storage); the remaining slots use real RegisBuilt
+  facility photography that doesn't show a competing brand.
+- **Client logos** (`assets/img/clients/`) — Kennards, Storage King, Public
+  Self Storage, Store&More, StoreLocal and Jim's, shown in the trust marquee.
+
+The original branded SVG placeholders are kept in the repo as fallbacks. To
+re-pull or refresh imagery from the live site, run
+**`node scripts/fetch-real-photos.mjs`** (see `assets/img/IMAGES.md`).
 
 ## Content sources
 
@@ -68,7 +82,8 @@ before publishing — particularly project dates and statistics.
 
 ## Going live — next steps
 
-1. Drop in the real project photos (see `IMAGES.md`).
-2. Connect the contact form to an email service or CRM endpoint.
-3. Confirm all copy and figures with the RegisBuilt team.
-4. Add analytics + a real Open Graph share image.
+1. Connect the contact form to an email service or CRM endpoint.
+2. Confirm all copy and figures with the RegisBuilt team — in particular which
+   facility photo belongs to which named case study (the project-photo mapping
+   is brand-accurate but the exact branch should be confirmed).
+3. Add analytics + a real Open Graph share image.
