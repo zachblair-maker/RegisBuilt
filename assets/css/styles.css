@@ -846,3 +846,11 @@ body.is-leaving { animation: pageOut .34s var(--ease) forwards; }
 .case-stat { gap: 13px; padding: 30px 28px; justify-content: flex-start; }
 .case-stat__num { margin-top: 4px; }
 .case-stat__icon { width: 26px; height: 26px; }
+
+/* Service cards — match the refined hover language */
+.card { position: relative; overflow: hidden; transition: background .4s var(--ease); }
+.card::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--orange), var(--orange-2)); transition: width .55s var(--ease); }
+.card:hover { background: var(--surface-2); }
+.card:hover::after { width: 100%; }
+.card__icon { transition: transform .4s var(--ease); }
+.card:hover .card__icon { transform: translateY(-3px); }
