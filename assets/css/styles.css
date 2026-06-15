@@ -186,8 +186,8 @@ button { font: inherit; cursor: pointer; }
 .marquee__track { display: flex; gap: 28px; width: max-content; animation: marquee 45s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-50%); } }
-.logo-chip { flex: none; display: inline-flex; align-items: center; justify-content: center; height: 76px; padding: 0 30px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px -22px rgba(0,0,0,.7); transition: transform .3s var(--ease); }
-.logo-chip img { height: 34px; width: auto; max-width: 188px; object-fit: contain; opacity: .9; transition: opacity .3s var(--ease); }
+.logo-chip { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 210px; height: 84px; padding: 0 26px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px -22px rgba(0,0,0,.7); transition: transform .3s var(--ease); }
+.logo-chip img { max-height: 38px; max-width: 100%; width: auto; height: auto; object-fit: contain; opacity: .9; transition: opacity .3s var(--ease); }
 .logo-chip:hover { transform: translateY(-3px); }
 .logo-chip:hover img { opacity: 1; }
 
