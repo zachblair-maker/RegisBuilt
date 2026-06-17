@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BloodCheck — Bloodwork Analyzer for Enhanced Athletes</title>
+<meta name="description" content="An educational, harm-reduction tool that helps athletes using performance-enhancing compounds choose the right blood panel, interpret their results, and understand evidence-informed ways to support their health." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- Top safety bar -->
+<div class="safety-bar" id="safetyBar">
+  <span><strong>Educational use only.</strong> Not medical advice and not a substitute for a doctor or lab. Always confirm results with a licensed clinician.</span>
+  <button class="safety-bar__close" aria-label="Dismiss" onclick="document.getElementById('safetyBar').style.display='none'">×</button>
+</div>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/><path d="M8.5 14.5c.8 1.2 2 2 3.5 2"/></svg>
+      </span>
+      <span class="brand__text">Blood<span>Check</span></span>
+    </a>
+    <nav class="topnav" id="topnav">
+      <a href="#step-compounds" class="step-link is-active" data-step="1"><b>1</b><span>Compounds</span></a>
+      <a href="#step-panel" class="step-link" data-step="2"><b>2</b><span>Panel</span></a>
+      <a href="#step-enter" class="step-link" data-step="3"><b>3</b><span>Results</span></a>
+      <a href="#step-analysis" class="step-link" data-step="4"><b>4</b><span>Analysis</span></a>
+    </nav>
+    <span class="privacy-pill" title="Everything stays on your device">🔒 Private</span>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true">
+    <span class="orb orb--teal"></span>
+    <span class="orb orb--blood"></span>
+    <span class="grid-overlay"></span>
+  </div>
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow" data-anim="hero">● Harm-reduction bloodwork companion</p>
+      <h1 data-anim="hero">Know exactly what to test —<br /><span class="grad-text">and what your numbers mean.</span></h1>
+      <p class="hero__sub" data-anim="hero">Select the compounds you're running, get a tailored blood panel, then enter your results for a plain-English breakdown of every marker: what it is, how it can make you feel out of range, healthy reference ranges, and evidence-informed ways to bring it back.</p>
+      <div class="hero__cta" data-anim="hero">
+        <a href="#step-compounds" class="btn btn--primary">Start — pick your compounds</a>
+        <a href="#disclaimer" class="btn btn--ghost">Read the disclaimer</a>
+      </div>
+      <div class="hero__meta" data-anim="hero">
+        <span><b>37</b> markers</span>
+        <span><b>29</b> compounds</span>
+        <span><b>100%</b> on-device</span>
+      </div>
+    </div>
+    <div class="hero__visual" data-anim="vial" aria-hidden="true">
+      <div class="vial">
+        <div class="vial__fluid"></div>
+        <div class="vial__bubbles"><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="hero__chips">
+        <span class="chip chip--ok">Hematocrit 47%</span>
+        <span class="chip chip--warn">HDL 34 mg/dL</span>
+        <span class="chip chip--bad">ALT 78 U/L</span>
+        <span class="chip chip--ok">eGFR 96</span>
+        <span class="chip chip--warn">E2 61 pg/mL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="layout wrap">
+
+  <!-- Desktop sticky step rail -->
+  <aside class="rail" aria-hidden="true">
+    <div class="rail__inner">
+      <a href="#step-compounds" class="rail__item is-active" data-step="1"><span class="rail__dot"></span><span class="rail__txt"><b>Step 1</b>Compounds</span></a>
+      <a href="#step-panel" class="rail__item" data-step="2"><span class="rail__dot"></span><span class="rail__txt"><b>Step 2</b>Your panel</span></a>
+      <a href="#step-enter" class="rail__item" data-step="3"><span class="rail__dot"></span><span class="rail__txt"><b>Step 3</b>Enter results</span></a>
+      <a href="#step-analysis" class="rail__item" data-step="4"><span class="rail__dot"></span><span class="rail__txt"><b>Step 4</b>Analysis</span></a>
+      <span class="rail__line"></span>
+    </div>
+  </aside>
+
+  <main class="content">
+
+  <!-- STEP 1: COMPOUNDS -->
+  <section id="step-compounds" class="step" data-reveal>
+    <div class="step__head">
+      <span class="step__num">1</span>
+      <div>
+        <h2>What are you running?</h2>
+        <p>Select every compound in your current or planned protocol. We'll combine them into one monitoring panel. Each card shows how it affects your bloodwork.</p>
+      </div>
+    </div>
+    <div class="compound-tools">
+      <input type="search" id="compoundSearch" class="input" placeholder="Search compounds (e.g. trenbolone, anavar, HGH)…" aria-label="Search compounds" />
+      <button class="btn btn--ghost btn--sm" id="clearCompounds" type="button">Clear all</button>
+    </div>
+    <div id="compoundGroups" class="compound-groups"><!-- populated by app.js --></div>
+    <div class="step__foot">
+      <span id="selectedCount" class="muted">No compounds selected yet.</span>
+      <a href="#step-panel" class="btn btn--primary" id="toPanelBtn">See my recommended panel →</a>
+    </div>
+  </section>
+
+  <!-- STEP 2: PANEL -->
+  <section id="step-panel" class="step" data-reveal>
+    <div class="step__head">
+      <span class="step__num">2</span>
+      <div>
+        <h2>Your recommended blood panel</h2>
+        <p>These are the markers worth tracking for your selection. Bring this list to your GP, a private lab, or a TRT/men's-health clinic.</p>
+      </div>
+    </div>
+    <div id="panelEmpty" class="empty-note">Select compounds in Step&nbsp;1 to generate your panel. You can also jump to Step&nbsp;3 and enter any results you already have.</div>
+    <div id="panelOutput"></div>
+    <div class="step__foot" id="panelFoot" hidden>
+      <button class="btn btn--ghost btn--sm" id="copyPanelBtn" type="button">Copy panel as text</button>
+      <a href="#step-enter" class="btn btn--primary">Enter my results →</a>
+    </div>
+  </section>
+
+  <!-- STEP 3: ENTER RESULTS -->
+  <section id="step-enter" class="step" data-reveal>
+    <div class="step__head">
+      <span class="step__num">3</span>
+      <div>
+        <h2>Enter your results</h2>
+        <p>Type values in by hand, or paste/upload a lab report and we'll try to read the numbers. Leave anything you don't have blank.</p>
+      </div>
+    </div>
+
+    <div class="enter-grid">
+      <div class="enter-paste card">
+        <h3>Paste or upload a report</h3>
+        <p class="muted">Paste the text of your lab results (or upload a <code>.txt</code> / <code>.csv</code>). We'll match marker names to numbers and fill the form — always double-check what it reads.</p>
+        <textarea id="pasteArea" class="input textarea" placeholder="e.g.&#10;Hematocrit 52 %&#10;ALT 64 U/L&#10;HDL Cholesterol 33 mg/dL&#10;Estradiol 61 pg/mL"></textarea>
+        <div class="enter-paste__actions">
+          <label class="btn btn--ghost btn--sm file-btn">
+            Upload .txt / .csv
+            <input type="file" id="fileInput" accept=".txt,.csv,text/plain,text/csv" hidden />
+          </label>
+          <button class="btn btn--primary btn--sm" id="parseBtn" type="button">Read values →</button>
+        </div>
+        <p id="parseResult" class="parse-result" hidden></p>
+      </div>
+
+      <div class="enter-toggle">
+        <label class="switch">
+          <input type="checkbox" id="showAllMarkers" />
+          <span>Show all markers (not just my recommended panel)</span>
+        </label>
+      </div>
+    </div>
+
+    <form id="markerForm" class="marker-form"><!-- populated by app.js --></form>
+
+    <div class="step__foot">
+      <button class="btn btn--ghost btn--sm" id="resetValuesBtn" type="button">Clear values</button>
+      <button class="btn btn--primary" id="analyzeBtn" type="button">Analyze my bloodwork →</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: ANALYSIS -->
+  <section id="step-analysis" class="step" data-reveal>
+    <div class="step__head">
+      <span class="step__num">4</span>
+      <div>
+        <h2>Your analysis</h2>
+        <p>Each marker you entered is below, sorted by what needs attention first. This is education, not a diagnosis — anything flagged red deserves a conversation with a clinician.</p>
+      </div>
+    </div>
+    <div id="analysisSummary"></div>
+    <div id="analysisEmpty" class="empty-note">Enter at least one value in Step&nbsp;3 and press <strong>Analyze</strong>.</div>
+    <div id="analysisOutput"></div>
+    <div class="step__foot" id="analysisFoot" hidden>
+      <button class="btn btn--ghost btn--sm" id="printBtn" type="button">Print / save as PDF</button>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section id="disclaimer" class="disclaimer card" data-reveal>
+    <h2>Important — please read</h2>
+    <ul>
+      <li><strong>This tool does not provide medical advice.</strong> It is an educational, harm-reduction resource. It cannot diagnose, treat, or replace a licensed physician, endocrinologist, or laboratory.</li>
+      <li><strong>Reference ranges vary</strong> between labs, assays, age, and individuals. Always interpret your results using the ranges printed on your own lab report and with a clinician who knows your history.</li>
+      <li><strong>Supplement and lifestyle suggestions are general education,</strong> not prescriptions. They can interact with medications and conditions. Talk to a doctor or pharmacist before starting anything.</li>
+      <li><strong>Some values are emergencies.</strong> Very high hematocrit, blood pressure, liver enzymes, or potassium — or symptoms like chest pain, severe headache, shortness of breath, or fainting — mean you should seek urgent medical care now, not read a website.</li>
+      <li><strong>The safest choice</strong> is always to use these substances under medical supervision, or not at all. This tool exists because people use them anyway and deserve information that keeps them safer.</li>
+    </ul>
+  </section>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>BloodCheck</strong> · Educational harm-reduction tool · Not medical advice.</p>
+    <p class="muted">No data leaves your browser. Everything you enter stays on your device.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="data.js" defer></script>
+<script src="app.js" defer></script>
+<script src="animations.js" defer></script>
+</body>
+</html>
