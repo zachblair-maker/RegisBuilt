@@ -176,6 +176,7 @@
         return `<h3 class="panel-section-title">${g}</h3><div class="panel-grid">${cards}</div>`;
       })
       .join("");
+    if (window.BCAnim) window.BCAnim.reveal("#panelOutput .panel-card");
   }
 
   $("#copyPanelBtn").addEventListener("click", () => {
@@ -491,6 +492,8 @@
       })
       .join("");
 
+    if (window.BCAnim) window.BCAnim.analysis();
+
     const sec = document.getElementById("step-analysis");
     if (sec.scrollIntoView) sec.scrollIntoView({ behavior: "smooth" });
   }
@@ -498,23 +501,33 @@
   $("#analyzeBtn").addEventListener("click", analyze);
   $("#printBtn").addEventListener("click", () => window.print());
 
-  /* ---------- scroll-spy for nav ---------- */
-  const sections = ["step-compounds", "step-panel", "step-enter", "step-analysis"].map(
-    (id) => document.getElementById(id)
-  );
-  const navItems = $$(".steps-nav__item");
+  /* ---------- scroll-spy + progress ---------- */
+  const sectionIds = ["step-compounds", "step-panel", "step-enter", "step-analysis"];
+  const sections = sectionIds.map((id) => document.getElementById(id));
+  const stepLinks = $$("[data-step]");
+  function setActiveStep(idx) {
+    stepLinks.forEach((n) =>
+      n.classList.toggle("is-active", Number(n.dataset.step) === idx + 1)
+    );
+  }
   const spy = new IntersectionObserver(
     (entries) => {
       entries.forEach((en) => {
-        if (en.isIntersecting) {
-          const idx = sections.indexOf(en.target);
-          navItems.forEach((n, i) => n.classList.toggle("is-active", i === idx));
-        }
+        if (en.isIntersecting) setActiveStep(sections.indexOf(en.target));
       });
     },
-    { rootMargin: "-40% 0px -55% 0px" }
+    { rootMargin: "-45% 0px -50% 0px" }
   );
   sections.forEach((s) => s && spy.observe(s));
+
+  const progress = document.getElementById("scrollProgress");
+  function onScroll() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 
   /* ---------- init ---------- */
   $("#markerForm").addEventListener("input", onMarkerInput); // delegated, attach once

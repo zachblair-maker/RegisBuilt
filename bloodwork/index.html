@@ -12,9 +12,11 @@
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
 <!-- Top safety bar -->
 <div class="safety-bar" id="safetyBar">
-  <span><strong>Educational use only.</strong> This is not medical advice and is not a substitute for a doctor or laboratory. Always confirm results with a licensed clinician.</span>
+  <span><strong>Educational use only.</strong> Not medical advice and not a substitute for a doctor or lab. Always confirm results with a licensed clinician.</span>
   <button class="safety-bar__close" aria-label="Dismiss" onclick="document.getElementById('safetyBar').style.display='none'">×</button>
 </div>
 
@@ -22,16 +24,17 @@
   <div class="wrap site-header__inner">
     <a class="brand" href="#top">
       <span class="brand__mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/><path d="M8.5 14.5c.8 1.2 2 2 3.5 2"/></svg>
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/><path d="M8.5 14.5c.8 1.2 2 2 3.5 2"/></svg>
       </span>
       <span class="brand__text">Blood<span>Check</span></span>
     </a>
-    <nav class="steps-nav" id="stepsNav">
-      <a href="#step-compounds" class="steps-nav__item is-active" data-step="1"><b>1</b> Compounds</a>
-      <a href="#step-panel" class="steps-nav__item" data-step="2"><b>2</b> Panel</a>
-      <a href="#step-enter" class="steps-nav__item" data-step="3"><b>3</b> Enter results</a>
-      <a href="#step-analysis" class="steps-nav__item" data-step="4"><b>4</b> Analysis</a>
+    <nav class="topnav" id="topnav">
+      <a href="#step-compounds" class="step-link is-active" data-step="1"><b>1</b><span>Compounds</span></a>
+      <a href="#step-panel" class="step-link" data-step="2"><b>2</b><span>Panel</span></a>
+      <a href="#step-enter" class="step-link" data-step="3"><b>3</b><span>Results</span></a>
+      <a href="#step-analysis" class="step-link" data-step="4"><b>4</b><span>Analysis</span></a>
     </nav>
+    <span class="privacy-pill" title="Everything stays on your device">🔒 Private</span>
   </div>
 </header>
 
@@ -39,40 +42,64 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero__bg" aria-hidden="true">
+    <span class="orb orb--teal"></span>
+    <span class="orb orb--blood"></span>
+    <span class="grid-overlay"></span>
+  </div>
   <div class="wrap hero__inner">
     <div class="hero__copy">
-      <p class="eyebrow">Harm-reduction bloodwork companion</p>
-      <h1>Know exactly what to test — and what your numbers are telling you.</h1>
-      <p class="hero__sub">Select the compounds you're running, get a tailored blood panel, then enter your results for a plain-English breakdown of every marker: what it is, how it can make you feel when it drifts out of range, healthy reference ranges, and evidence-informed ways to bring it back.</p>
-      <div class="hero__cta">
+      <p class="eyebrow" data-anim="hero">● Harm-reduction bloodwork companion</p>
+      <h1 data-anim="hero">Know exactly what to test —<br /><span class="grad-text">and what your numbers mean.</span></h1>
+      <p class="hero__sub" data-anim="hero">Select the compounds you're running, get a tailored blood panel, then enter your results for a plain-English breakdown of every marker: what it is, how it can make you feel out of range, healthy reference ranges, and evidence-informed ways to bring it back.</p>
+      <div class="hero__cta" data-anim="hero">
         <a href="#step-compounds" class="btn btn--primary">Start — pick your compounds</a>
-        <a href="#disclaimer" class="btn btn--ghost">Read the disclaimer first</a>
+        <a href="#disclaimer" class="btn btn--ghost">Read the disclaimer</a>
+      </div>
+      <div class="hero__meta" data-anim="hero">
+        <span><b>37</b> markers</span>
+        <span><b>29</b> compounds</span>
+        <span><b>100%</b> on-device</span>
       </div>
     </div>
-    <div class="hero__panel" aria-hidden="true">
+    <div class="hero__visual" data-anim="vial" aria-hidden="true">
       <div class="vial">
         <div class="vial__fluid"></div>
-        <div class="vial__bubbles"><span></span><span></span><span></span></div>
+        <div class="vial__bubbles"><span></span><span></span><span></span><span></span></div>
       </div>
       <div class="hero__chips">
         <span class="chip chip--ok">Hematocrit 47%</span>
         <span class="chip chip--warn">HDL 34 mg/dL</span>
         <span class="chip chip--bad">ALT 78 U/L</span>
         <span class="chip chip--ok">eGFR 96</span>
+        <span class="chip chip--warn">E2 61 pg/mL</span>
       </div>
     </div>
   </div>
 </section>
 
-<main class="wrap">
+<div class="layout wrap">
+
+  <!-- Desktop sticky step rail -->
+  <aside class="rail" aria-hidden="true">
+    <div class="rail__inner">
+      <a href="#step-compounds" class="rail__item is-active" data-step="1"><span class="rail__dot"></span><span class="rail__txt"><b>Step 1</b>Compounds</span></a>
+      <a href="#step-panel" class="rail__item" data-step="2"><span class="rail__dot"></span><span class="rail__txt"><b>Step 2</b>Your panel</span></a>
+      <a href="#step-enter" class="rail__item" data-step="3"><span class="rail__dot"></span><span class="rail__txt"><b>Step 3</b>Enter results</span></a>
+      <a href="#step-analysis" class="rail__item" data-step="4"><span class="rail__dot"></span><span class="rail__txt"><b>Step 4</b>Analysis</span></a>
+      <span class="rail__line"></span>
+    </div>
+  </aside>
+
+  <main class="content">
 
   <!-- STEP 1: COMPOUNDS -->
-  <section id="step-compounds" class="step">
+  <section id="step-compounds" class="step" data-reveal>
     <div class="step__head">
       <span class="step__num">1</span>
       <div>
         <h2>What are you running?</h2>
-        <p>Select every compound in your current or planned protocol. We'll combine them into one monitoring panel. Hover a name for how it affects your bloodwork.</p>
+        <p>Select every compound in your current or planned protocol. We'll combine them into one monitoring panel. Each card shows how it affects your bloodwork.</p>
       </div>
     </div>
     <div class="compound-tools">
@@ -87,15 +114,15 @@
   </section>
 
   <!-- STEP 2: PANEL -->
-  <section id="step-panel" class="step">
+  <section id="step-panel" class="step" data-reveal>
     <div class="step__head">
       <span class="step__num">2</span>
       <div>
         <h2>Your recommended blood panel</h2>
-        <p>These are the markers worth tracking for your selection. Bring this list to your GP, a private lab, or a TRT/men's-health clinic. When in doubt, a full panel is rarely a bad idea.</p>
+        <p>These are the markers worth tracking for your selection. Bring this list to your GP, a private lab, or a TRT/men's-health clinic.</p>
       </div>
     </div>
-    <div id="panelEmpty" class="empty-note">Select compounds in Step&nbsp;1 to generate your panel. You can also just scroll to Step&nbsp;3 and enter any results you already have.</div>
+    <div id="panelEmpty" class="empty-note">Select compounds in Step&nbsp;1 to generate your panel. You can also jump to Step&nbsp;3 and enter any results you already have.</div>
     <div id="panelOutput"></div>
     <div class="step__foot" id="panelFoot" hidden>
       <button class="btn btn--ghost btn--sm" id="copyPanelBtn" type="button">Copy panel as text</button>
@@ -104,7 +131,7 @@
   </section>
 
   <!-- STEP 3: ENTER RESULTS -->
-  <section id="step-enter" class="step">
+  <section id="step-enter" class="step" data-reveal>
     <div class="step__head">
       <span class="step__num">3</span>
       <div>
@@ -116,7 +143,7 @@
     <div class="enter-grid">
       <div class="enter-paste card">
         <h3>Paste or upload a report</h3>
-        <p class="muted">Paste the text of your lab results (or upload a <code>.txt</code> / <code>.csv</code> export). We'll match marker names to numbers and fill the form. Always double-check what it reads.</p>
+        <p class="muted">Paste the text of your lab results (or upload a <code>.txt</code> / <code>.csv</code>). We'll match marker names to numbers and fill the form — always double-check what it reads.</p>
         <textarea id="pasteArea" class="input textarea" placeholder="e.g.&#10;Hematocrit 52 %&#10;ALT 64 U/L&#10;HDL Cholesterol 33 mg/dL&#10;Estradiol 61 pg/mL"></textarea>
         <div class="enter-paste__actions">
           <label class="btn btn--ghost btn--sm file-btn">
@@ -145,7 +172,7 @@
   </section>
 
   <!-- STEP 4: ANALYSIS -->
-  <section id="step-analysis" class="step">
+  <section id="step-analysis" class="step" data-reveal>
     <div class="step__head">
       <span class="step__num">4</span>
       <div>
@@ -162,7 +189,7 @@
   </section>
 
   <!-- DISCLAIMER -->
-  <section id="disclaimer" class="disclaimer card">
+  <section id="disclaimer" class="disclaimer card" data-reveal>
     <h2>Important — please read</h2>
     <ul>
       <li><strong>This tool does not provide medical advice.</strong> It is an educational, harm-reduction resource. It cannot diagnose, treat, or replace a licensed physician, endocrinologist, or laboratory.</li>
@@ -173,7 +200,8 @@
     </ul>
   </section>
 
-</main>
+  </main>
+</div>
 
 <footer class="site-footer">
   <div class="wrap">
@@ -182,7 +210,10 @@
   </div>
 </footer>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="data.js" defer></script>
+<script src="app.js" defer></script>
+<script src="animations.js" defer></script>
 </body>
 </html>
